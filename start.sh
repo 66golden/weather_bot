@@ -8,4 +8,3 @@ source venv/bin/activate
 pip install -r requirements.txt
 chmod +x main.py
 python3 main.py
-

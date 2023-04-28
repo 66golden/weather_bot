@@ -1,40 +1,29 @@
+import requests
 from aiogram import Bot, Dispatcher, executor, types
-from PIL import Image, ImageOps
-import io
 
 API_TOKEN = '5656912789:AAGs8IFi7M-x8iz_7eX9JilE7rCqKxU7cBk'
+API_KEY = "e4d169e43b4659fb033e141f71ffcde5"
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
 
 @dp.message_handler(commands=['start'])
-async def send_welcome(message: types.Message):
-    await message.reply(
-        "Привет!\nЯ бот-зеркало.\nТы можешь отправить мне фотографию, а я отзеркалю ее и пришлю обратно.")
+async def start_command(message: types.Message):
+    await message.reply("Welcome to the Weather Bot! Please enter a city name to get the current weather.")
 
 
-@dp.message_handler(commands=['help'])
-async def send_welcome(message: types.Message):
-    await message.reply(
-        "Ты можешь отправить мне фотографию, а я отзеркалю ее и пришлю обратно.")
-
-
-@dp.message_handler(content_types=['text'])
-async def echo(message: types.Message):
-    await message.answer("Я бот-зеркало. Напиши команду /help, чтобы получить инструкции.")
-
-
-@dp.message_handler(content_types=['photo'])
-async def mirror_photo(message: types.Message):
-    photo = message.photo[-1]
-    photo_file = await bot.download_file_by_id(photo.file_id)
-    image = Image.open(photo_file)
-    mirrored_image = ImageOps.mirror(image)
-    buffer = io.BytesIO()
-    mirrored_image.save(buffer, format='JPEG')
-    buffer.seek(0)
-    await message.reply_photo(buffer)
+@dp.message_handler()
+async def get_weather(message: types.Message):
+    city_name = message.text
+    response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city_name},uk&APPID={API_KEY}")
+    if response.status_code == 200:
+        weather_data = response.json()
+        temperature = weather_data["main"]["temp"]
+        description = weather_data["weather"][0]["description"]
+        await message.reply(f"The current temperature in {city_name} is {round(temperature - 273, 2)}°C and the weather is {description}.")
+    else:
+        await message.reply(f"Sorry, I couldn't get the weather for {city_name}.")
 
 
 if __name__ == '__main__':
