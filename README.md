@@ -1,2 +1,2 @@
-# Mirror_bot
-A telegram bot that mirrors images.
+# weather_bot
+A telegram bot that shows current weather.
