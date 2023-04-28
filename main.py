@@ -16,12 +16,12 @@ async def start_command(message: types.Message):
 @dp.message_handler()
 async def get_weather(message: types.Message):
     city_name = message.text
-    response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city_name},uk&APPID={API_KEY}")
+    response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_KEY}&units=metric")
     if response.status_code == 200:
         weather_data = response.json()
         temperature = weather_data["main"]["temp"]
         description = weather_data["weather"][0]["description"]
-        await message.reply(f"The current temperature in {city_name} is {round(temperature - 273, 2)}°C and the weather is {description}.")
+        await message.reply(f"The current temperature in {city_name} is {temperature}°C and the weather is {description}.")
     else:
         await message.reply(f"Sorry, I couldn't get the weather for {city_name}.")
 
