@@ -12,9 +12,13 @@ https://t.me/python_project_true_bot
 git clone https://github.com/66golden/weather_bot.git
 cd weather_bot
 ```
-2. Для запуска бота введите команды:
+2. Введите команду:
 ```bash
 chmod +x start.sh
+```
+3. Подставьте ваш **API_TOKEN** и **API_KEY** в файле *start.sh*.
+4. Для запуска бота введите команду:
+```bash
 ./start.sh
 ```
-3. Пользуйтесь ботом!
+5. Пользуйтесь ботом!

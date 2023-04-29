@@ -1,8 +1,9 @@
+import os
 import requests
 from aiogram import Bot, Dispatcher, executor, types
 
-API_TOKEN = '5656912789:AAGs8IFi7M-x8iz_7eX9JilE7rCqKxU7cBk'
-API_KEY = "e4d169e43b4659fb033e141f71ffcde5"
+API_TOKEN = os.environ['API_TOKEN']
+API_KEY = os.environ['API_KEY']
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
