@@ -14,9 +14,8 @@ cd weather_bot
 ```bash
 chmod +x start.sh
 ```
-3. Подставьте ваш **API_TOKEN** и **API_KEY** в файле *start.sh*.
-4. Для запуска бота введите команду:
+3. Для запуска бота введите команду:
 ```bash
-./start.sh
+./start.sh "your_token" "your_key"
 ```
-5. Пользуйтесь ботом!
+4. Пользуйтесь ботом!
